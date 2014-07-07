@@ -6,15 +6,15 @@ var _ = require('underscore');
 
 var Dest = React.createClass({
 
-  selectDest: function(dest) {
+  handleSetDest: function(dest) {
     this.props.onDestSelect(dest);
   },
 
 
   render: function() {
     var dests = _.map(this.props.dests, function(dest, i) {
-      return (<DestEntry dest={dest} onClick={this.selectDest} key={i} />);
-    });
+      return (<DestEntry dest={dest} onSetDest={this.handleSetDest} key={i} />);
+    }.bind(this));
 
     return (
       <div>

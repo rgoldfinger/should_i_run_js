@@ -46,15 +46,28 @@ var App = React.createClass({
 
 
   },
+
+
   onSetDest: function(dest) {
     this.setState({dest: dest});
   },
 
+  handleGo: function() {
+    //for now setting has result to true, but will need to call helpers and things first
+    this.setState({
+      hasResult: true
+    })
+
+  },
+
   render: function () {
+    //Question page
     if (this.state.dest !== null && !this.state.hasResult) {
-      return ( <Question />);
+      return ( <Question dest={this.state.dest}
+                onGo={this.handleGo}
+                />);
 
-
+    //Results page!
     } else if (this.state.hasResult) {
       return (
         <Result />
