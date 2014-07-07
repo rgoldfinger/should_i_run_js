@@ -5,8 +5,11 @@ var helpers = {
 
   },
 
-  determineLocation: function() {
-
+  determineLocation: function(callback) {
+    navigator.geolocation.getCurrentPosition(function(loc) {
+      console.log(loc);
+      callback(loc);
+    });
   },
 
   askGoogle: function(loc) {
@@ -14,11 +17,11 @@ var helpers = {
 
   },
 
-  determineStation: function() {
+  determineStation: function(callback) {
 
   }
 
-}
+};
 
 
 

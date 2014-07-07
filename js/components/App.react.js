@@ -36,12 +36,17 @@ var App = React.createClass({
       dest: null,
       loadingResult: false,
       hasResult: false,
-      dests: dests
+      dests: dests, 
+      location: null
     };
   },
 
   componentDidMount: function() {
-
+    Helpers.determineLocation(function(loc) {
+      this.setState({
+        location: loc
+      });
+    }.bind(this));
   },
 
   componentWillUnmount: function () {
@@ -80,6 +85,7 @@ var App = React.createClass({
         <Dest 
           onDestSelect={this.onSetDest}
           dests={this.state.dests}
+          loc={this.state.location}
         />
       );
     }
