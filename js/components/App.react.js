@@ -22,8 +22,8 @@ var Helpers = require('../helpers/helpers');
 // hasResult: Bool
 
 var dests = [
-  { name: 'home', loc: '1' },
-  { name: 'work', loc: '2' }
+  { name: 'home', loc: '1', lat: '37.51249978', lon: '-122.252941' },
+  { name: 'hack reactor', loc: '2', lat: '37.78387', lon: '-122.408767' }
 ]
 
 
@@ -57,6 +57,7 @@ var App = React.createClass({
 
   onSetDest: function(dest) {
     this.setState({dest: dest});
+    Helpers.askGoogle(loc, this.state.dest);
   },
 
   handleGo: function() {
