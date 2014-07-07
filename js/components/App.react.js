@@ -4,6 +4,8 @@ var React = require('react');
 var Dest = require('./Dest.react');
 var Result = require('./Result.react');
 var Question = require('./Question.react');
+var Helpers = require('../helpers/helpers');
+
 // var MainSection = require('./MainSection.react');
 // var ChatStore = require('../stores/ChatStore');
 // var UserStore = require('../stores/UserStore');
