@@ -1,12 +1,6 @@
 ## Front end todo's
-- logout user
-- add room
-- change room
-- styling 
-- router
+- destinations are objects that are passed down to the dest page and iterated over. The chosen one is passed back up. 
+- css classes for destinations
+- 
 
 # Back end todo's
-- Back end
-- express server
-- socket.io
-- database persistance

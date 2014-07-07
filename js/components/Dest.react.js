@@ -6,27 +6,26 @@ var _ = require('underscore');
 
 var Dest = React.createClass({
 
+  selectDest: function(dest) {
+    this.props.onDestSelect(dest);
+  },
+
 
   render: function() {
-    var dests = this.props.dests;
+    var dests = _.map(this.props.dests, function(dest, i) {
+      return (<DestEntry dest={dest} onClick={this.selectDest} key={i} />);
+    });
 
-    for (var i = 0; i < dests.length; i ++)
     return (
       <div>
         <div>
           <h2> Where are you going? </h2>
         </div>
         <div>
-          <p> Home</p>
-        </div>
-        <div>
-          <p> Work </p>
-        </div>
-        <div>
-          <p> Other...</p>
+          {dests}
         </div>
       </div>
-    )
+    );
   }
 });
 

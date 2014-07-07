@@ -19,6 +19,10 @@ var Question = require('./Question.react');
 // loadingResult: Bool
 // hasResult: Bool
 
+var dests = [
+  { name: 'home', loc: '1' },
+  { name: 'work', loc: '2' }
+]
 
 
 
@@ -29,7 +33,8 @@ var App = React.createClass({
     return {
       dest: null,
       loadingResult: false,
-      hasResult: false
+      hasResult: false,
+      dests: dests
     };
   },
 
@@ -43,7 +48,7 @@ var App = React.createClass({
   },
   onSetDest: function(dest) {
     this.setState({dest: dest});
-  }
+  },
 
   render: function () {
     if (this.state.dest !== null && !this.state.hasResult) {
@@ -59,6 +64,7 @@ var App = React.createClass({
       return (
         <Dest 
           onDestSelect={this.onSetDest}
+          dests={this.state.dests}
         />
       );
     }
