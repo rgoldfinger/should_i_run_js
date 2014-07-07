@@ -13,7 +13,9 @@ var DestEntry = React.createClass({
 
       <div 
         className={"dest" + this.props.key} 
-        onClick={this.handleSetDest} >
+        onClick={this.handleSetDest} 
+        onTouchEnd={this.handleSetDest} 
+        >
         <p> {this.props.dest.name} </p>
       </div>
 

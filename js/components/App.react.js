@@ -27,7 +27,7 @@ var dests = [
 ]
 
 
-
+React.initializeTouchEvents(true);
 
 var App = React.createClass({
 
