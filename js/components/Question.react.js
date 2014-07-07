@@ -11,7 +11,9 @@ var Question = React.createClass({
     console.log(this.props);
     
     return (
-      <div onClick={this.handleGo}>
+      <div 
+        onTouchEnd={this.handleGo}
+        onClick={this.handleGo}>
         <h2> Should I run?</h2>
         <p>You're catching the train to {this.props.dest.name}</p>
       </div>
