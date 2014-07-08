@@ -6,25 +6,19 @@ var DestEntry = React.createClass({
   getInitialState: function () {
     return {moved: false};
   },
+
   handleSetDest: function(e) {
-    console.log('touchEnd:');
     if(this.state.moved === false) {
-      console.log("No move so firing!");
       this.props.onSetDest(this.props.dest);
     }
-
-
-
   },
 
   onTouchMove: function(e) {
-    console.log('touchMove:');
     this.setState({moved: true});
 
   },
 
   onTouchStart: function(e) {
-    console.log('touchStart:');
     this.setState({moved: false});
   },
 
@@ -36,8 +30,8 @@ var DestEntry = React.createClass({
         className={"dest-entry dest" + this.props.key}
         onTouchEnd={this.handleSetDest} 
         onTouchStart={this.onTouchStart} 
-        onClick={this.handleSetDest}
         onTouchMove={this.onTouchMove}
+        onClick={this.handleSetDest}
         >
         <p> {this.props.dest.name} </p>
       </div>
