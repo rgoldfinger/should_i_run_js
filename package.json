@@ -6,7 +6,8 @@
   "dependencies": {
     "es6-promise": "~0.1.1",
     "react": "~0.10",
-    "underscore": "^1.6.0"
+    "underscore": "^1.6.0",
+    "xml2js": "^0.4.4"
   },
   "devDependencies": {
     "browserify": "~2.36.0",

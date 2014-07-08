@@ -8,8 +8,6 @@ var Question = React.createClass({
   },
 
   render: function() {
-    console.log(this.props);
-    
     return (
       <div 
         onTouchEnd={this.handleGo}

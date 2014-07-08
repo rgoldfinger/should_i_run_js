@@ -1,6 +1,5 @@
 ## Front end todo's
-- destinations are objects that are passed down to the dest page and iterated over. The chosen one is passed back up. 
-- css classes for destinations
-- 
+- Right now will only get one possible terminus. But we want all possible. 
+- Should limit destination locations to the stations...
 
 # Back end todo's
