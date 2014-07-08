@@ -101,7 +101,7 @@ body {
 
 .answer {
   font-family: 'Lobster', cursive;
-  padding: 150px 20px;
+  padding: 120px 20px;
 
 }
 
@@ -117,10 +117,16 @@ body {
 }
 
 .because p {
-  font-size: 20px;
-  padding: 15px;
+  font-size: 18px;
+  padding: 10px 20px;
 }
 
+.following {
+  font-size: 25px;
+  text-align: left;
+  padding: 27px 20px;
+  background: #F5E5C0;
+}
 
 .example-enter {
   opacity: 0.01;

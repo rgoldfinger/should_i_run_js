@@ -30,7 +30,7 @@ var Result = React.createClass({
 
     var speedNeeded;
 
-    var nextTime;
+    var nextTime, followingTime;
 
     //we start at the end so that we set the next makeable train and don't then overwrite it
     for (var i = times.length; i >= 0; i --) {
@@ -38,8 +38,12 @@ var Result = React.createClass({
         speedNeeded = distance / (times[i] - timeInStation);
         if (speedNeeded < runningSpeed) {
           nextTime = times[i];
+          followingTime = times[i+1];
+
         } else if (speedNeeded < walkingSpeed) {
           nextTime = times[i];
+          followingTime = times[i+1];
+
         }
       }
     }
@@ -77,11 +81,19 @@ var Result = React.createClass({
       <div 
         className={'because'}>
         <p>Next train: <b>~{nextTime}</b> minutes</p>
-        <p>Station: {distance} meters away</p>
+        <p>{this.props.stationName} station:</p> 
+        <p>{distance} meters</p>
         <p><b>{Math.ceil(distance/walkingSpeed) + timeInStation}</b> minutes walking</p>
         <p><b>{Math.ceil(distance/runningSpeed) + timeInStation}</b> minutes running</p>
       </div>
 
+    );
+
+    var following = (
+      <div 
+        className={'following dest-entry'}>
+        <p>Following train in <b>~{followingTime}</b> minutes</p>
+      </div>
     );
 
 
@@ -89,6 +101,7 @@ var Result = React.createClass({
       <div>
           {answer}
           {why}
+          {following}
       </div>
     );
   }

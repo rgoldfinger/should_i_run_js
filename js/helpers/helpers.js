@@ -59,12 +59,13 @@ var helpers = {
       if (g[i].travel_mode === 'WALKING') {
         foundWalking = true;
         var name1 = g[i].instructions;
-        name1 = name1.slice(7).trim();
+        name1 = name1.slice(7).trim(); 
         console.log("name1: ", name1);
         var stn1 = bartLookup[name1];
         console.log("stn1", stn1);
         steps[0] = g[i].distance.value;//this is distance in meters
         steps[1] = stn1.toUpperCase(); //our data is in lowercase but bart requires upper
+
 
 
 
@@ -86,6 +87,7 @@ var helpers = {
     var stn2 = bartLookup[name2];
     console.log("stn2", stn2);
     steps[2] = stn2.toUpperCase(); //our data is in lowercase but bart requires upper
+    steps[3] = name1; //Name of the station walking to
 
     return steps; //[distance to start station, start station, end of line station]
 

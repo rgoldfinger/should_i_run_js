@@ -48,6 +48,7 @@ var App = React.createClass({
       dests: data,
       location: null,
       distanceToStn: null, //right now this will be in meters
+      stationName: null,
       departureTimes: null
     };
   },
@@ -74,7 +75,7 @@ var App = React.createClass({
       });
       Helpers.askGoogle(loc, this.state.dest, function(err, stuff) {
         var steps = Helpers.convertGoogleToBart(stuff); //returns an array of start and end stations
-        this.setState({distanceToStn: steps[0]});
+        this.setState({distanceToStn: steps[0], stationName: steps[3]});
         Helpers.getNextTrains(steps[1], steps[2], function(err, data) {
           console.log("departure times: ", data);
           this.setState({
@@ -130,6 +131,7 @@ var App = React.createClass({
         <Result 
           distanceToStn={this.state.distanceToStn}
           departureTimes={this.state.departureTimes}
+          stationName={this.state.stationName}
           />
       );
     }

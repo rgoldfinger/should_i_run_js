@@ -42,8 +42,8 @@ var Pick = React.createClass({
   render: function() {
     return (
       <div className="question"
-        // onTouchEnd={this.handleGo}
-        // onClick={this.handleGo}>
+        onTouchEnd={this.handleGo}
+        onClick={this.handleGo}>
         <div id="map" className="picker-map"></div>
       </div>
     )
