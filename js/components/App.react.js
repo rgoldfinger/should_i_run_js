@@ -151,7 +151,8 @@ var App = React.createClass({
   handleLogin: function() {
     console.log("logging in");
     this.auth.login('github', {
-      rememberMe: true
+      rememberMe: true, 
+      preferRedirect: true
     });
     
 
