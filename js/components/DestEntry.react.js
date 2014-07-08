@@ -12,7 +12,7 @@ var DestEntry = React.createClass({
     return (
 
       <div 
-        className={"dest" + this.props.key} 
+        className={"dest-entry dest" + this.props.key} 
         onClick={this.handleSetDest} 
         onTouchEnd={this.handleSetDest} 
         >

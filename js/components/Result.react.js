@@ -51,7 +51,7 @@ var Result = React.createClass({
 
     if (speedNeeded < walkingSpeed) {
       answer = (
-        <div className="take-it-easy">
+        <div className="answer take-it-easy">
           Nah, take it easy...
         </div> 
 
@@ -61,7 +61,7 @@ var Result = React.createClass({
     } else if (speedNeeded < runningSpeed) {
 
        answer = (
-        <div className="run">
+        <div className="answer run">
           Run!
         </div> 
 
@@ -76,12 +76,10 @@ var Result = React.createClass({
     var why = (
       <div 
         className={'because'}>
-        <p>Why?</p>
-        <p>You are {distance} meters from the station</p>
-        <p>The next realistic train leaves in {nextTime} minutes</p>
-        <p>It will take you about {Math.ceil(distance/walkingSpeed)} minutes walking,</p>
-        <p>or about {Math.ceil(distance/runningSpeed)} minutes running to get to the station.</p>
-        <p>You need to go {parseInt(speedNeeded)} meters/minute to make it</p>
+        <p>Next train: <b>~{nextTime}</b> minutes</p>
+        <p>Station: {distance} meters away</p>
+        <p><b>{Math.ceil(distance/walkingSpeed)}</b> minutes walking</p>
+        <p><b>{Math.ceil(distance/runningSpeed)}</b> minutes running</p>
       </div>
 
     );

@@ -9,11 +9,10 @@ var Question = React.createClass({
 
   render: function() {
     return (
-      <div 
+      <div className="question"
         onTouchEnd={this.handleGo}
         onClick={this.handleGo}>
-        <h2> Should I run?</h2>
-        <p>You're catching the train to {this.props.dest.name}</p>
+        <h2 > Should I run?</h2>
       </div>
     )
   }

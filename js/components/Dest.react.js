@@ -15,30 +15,16 @@ var Dest = React.createClass({
     var dests = _.map(this.props.dests, function(dest, i) {
       return (<DestEntry dest={dest} onSetDest={this.handleSetDest} key={i} />);
     }.bind(this));
-    var locInfo;
-    if (this.props.loc) {
-      locInfo = (
-        <div>
-          <div>acc: {this.props.loc.coords.accuracy}</div>
-          <div>lat: {this.props.loc.coords.latitude}</div>
-          <div>lon: {this.props.loc.coords.longitude}</div>
-          <div>heading: {this.props.loc.coords.heading}</div>
-          <div>speed: {this.props.loc.coords.speed}</div> 
-        </div>
-        );
-    }
 
     return (
       <div>
-        <div>
+        <div className="dest-question"
+            >
           <h2> Where are you going? </h2>
         </div>
         <div>
           {dests}
         </div>
-        <div>You are: {locInfo}</div>
-
-
       </div>
     );
   }

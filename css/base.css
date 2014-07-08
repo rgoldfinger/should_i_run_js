@@ -1,3 +1,112 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+
+/*end reset*/
+
+
+body {
+  margin: 0;
+  font-family: 'lato', sans-serif;
+  font-weight: 700;
+  font-size: 35px;
+  background: #F8AF1E;
+}
+
+.dest-question {
+  background: #FA541C;
+  padding: 50px 20px;
+
+}
+
+.dest-entry {
+  padding: 50px 20px;
+
+
+}
+
+.dest0 {
+  background: #F5E5C0;
+}
+
+.dest1 {
+  background: #1C8C96;
+}
+.dest2 {
+  background: #F8AF1E;
+}
+
+.question {
+  padding: 200px 20px;
+  text-align: center;
+  background: #BEDB39;
+  height: 568px;
+
+}
+
+.answer {
+  font-family: 'Lobster', cursive;
+  padding: 200px 20px;
+
+}
+
+.run {
+  background: #FD7400;
+
+}
+
+.take-it-easy {
+  background: #1F8A70;
+
+}
+
+.because p {
+  font-size: 20px;
+  padding: 20px;
+}
+
+
 .example-enter {
   opacity: 0.01;
   left: 1000px;
