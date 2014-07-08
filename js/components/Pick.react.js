@@ -46,7 +46,7 @@ var Pick = React.createClass({
   handlePick: function(e) {
     console.log("handling pick");
     console.dir(e);
-    // var name = prompt("name:");
+    var name = prompt("name:");
   },
 
   render: function() {
