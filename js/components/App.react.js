@@ -22,7 +22,7 @@ var Helpers = require('../helpers/helpers');
 // loading: Bool
 
 var dests = [
-  { name: 'home', loc: '1', lat: '37.856808', lon: '-122.252941' },
+  { name: 'berkeley', loc: '1', lat: '37.856808', lon: '-122.252941' },
   { name: 'hack reactor', loc: '2', lat: '37.783531', lon: '-122.40911' }
 ];
 
@@ -42,6 +42,7 @@ var App = React.createClass({
     }
 
     return {
+      noUser: true,
       picking: false,
       dest: null,
       loading: false,
@@ -51,6 +52,44 @@ var App = React.createClass({
       stationName: null,
       departureTimes: null
     };
+  },
+
+  componentWillMount: function() {
+    this.shouldRef = new Firebase('https://shouldirun.firebaseio.com');
+    
+    this.auth = new FirebaseSimpleLogin(this.shouldRef, function(error, user) {
+      if (error) {
+        // an error occurred while attempting login
+        console.log(error);
+      } else if (user) {
+        this.setState({noUser: false});
+        this.user = this.shouldRef.child('/users/' + user.id);
+        this.user.child('username').set(user.username);
+
+        this.user.on('child_added', function(data) {
+          console.dir(data.val());
+          console.log("^^^got data^^^");
+          var d = data.val();
+          var placesList = [];
+          for (var k in d) {
+            if (d[k].name) {
+              placesList.push({name: d[k].name, lat: d[k].lat, lon: d[k].lon})
+            }
+          }
+          if (placesList.length > 0) {
+            this.setState({dests: placesList});
+          }
+
+          // this.setState({dests: data});
+        }.bind(this));
+
+      } else {
+        // user is logged out
+      }
+    }.bind(this));
+
+
+
   },
 
   componentDidMount: function() {
@@ -90,9 +129,12 @@ var App = React.createClass({
   },
 
   handleAddDest: function(place) {
+    this.user.child('places').push(place);
+
     this.state.dests.push(place);
     this.setState({dests: this.state.dests, picking: false});
-    localStorage.setItem('places', JSON.stringify(this.state.dests));
+    // localStorage.setItem('places', JSON.stringify(this.state.dests));
+    // this.shouldRef()
   },
 
   handlePicking: function() {
@@ -106,11 +148,31 @@ var App = React.createClass({
     this.handleAddDest(place);
   },
 
+  handleLogin: function() {
+    console.log("logging in");
+    this.auth.login('github', {
+      rememberMe: true
+    });
+    
+
+
+  },
+
 
 
   render: function () {
     //destination picker
-    if (!this.state.dest && !this.state.picking) {
+    if (this.state.noUser) {
+      return (
+      <div className="login" 
+        onClick={this.handleLogin}
+        onTouchEnd={this.handleLogin}>
+        <h2>Login</h2>
+
+      </div>
+    );
+
+    } else if (!this.state.dest && !this.state.picking) {
       return (
         <Dest
           onPicking={this.handlePicking}
@@ -119,7 +181,7 @@ var App = React.createClass({
           loc={this.state.location}
         />
       );
-    //loading page
+
     } else if (this.state.picking) {
       return (
         <Pick onAddDest={this.handleAddDest} 

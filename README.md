@@ -12,8 +12,8 @@
 -- allows users to login, save their location
 
 steps: 
-1. add location
-2. save location to local storage
+<!-- 1. add location
+2. save location to local storage -->
 3. login to firebase
 4. save location to firebase
 5. update results screen in real time
