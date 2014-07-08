@@ -79,6 +79,8 @@ var Result = React.createClass({
         <p>Why?</p>
         <p>You are {distance} meters from the station</p>
         <p>The next realistic train leaves in {nextTime} minutes</p>
+        <p>It will take you about {Math.ceil(distance/walkingSpeed)} minutes walking,</p>
+        <p>or about {Math.ceil(distance/runningSpeed)} minutes running to get to the station.</p>
         <p>You need to go {parseInt(speedNeeded)} meters/minute to make it</p>
       </div>
 
