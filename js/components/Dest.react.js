@@ -5,13 +5,27 @@ var DestEntry = require('./DestEntry.react');
 var _ = require('underscore');
 
 var Dest = React.createClass({
+  getInitialState: function () {
+    return {moved: false};
+  },
 
   handleSetDest: function(dest) {
     this.props.onDestSelect(dest);
   },
 
   handlePicking: function(e) {
-    this.props.onPicking();
+    if(this.state.moved === false) {
+      this.props.onPicking();
+    }
+  },
+
+  onTouchMove: function(e) {
+    this.setState({moved: true});
+
+  },
+
+  onTouchStart: function(e) {
+    this.setState({moved: false});
   },
 
 
@@ -30,7 +44,9 @@ var Dest = React.createClass({
           {dests}
         </div>
         <div className="dest-entry pick"
-          onTouchEnd={this.handlePicking} 
+          onTouchEnd={this.handlePicking}
+          onTouchStart={this.onTouchStart} 
+          onTouchMove={this.onTouchMove} 
           onClick={this.handlePicking}>
         <p>add destination</p>
         </div>

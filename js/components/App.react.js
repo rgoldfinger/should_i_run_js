@@ -64,11 +64,8 @@ var App = React.createClass({
       } else if (user) {
         this.setState({noUser: false});
         this.user = this.shouldRef.child('/users/' + user.id);
-        this.user.child('username').set(user.username);
 
         this.user.on('child_added', function(data) {
-          console.dir(data.val());
-          console.log("^^^got data^^^");
           var d = data.val();
           var placesList = [];
           for (var k in d) {
