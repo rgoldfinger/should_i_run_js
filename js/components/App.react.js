@@ -3,7 +3,7 @@
 var React = require('react');
 var Dest = require('./Dest.react');
 var Result = require('./Result.react');
-var Question = require('./Question.react');
+var Pick = require('./Pick.react');
 var Helpers = require('../helpers/helpers');
 
 
@@ -32,10 +32,18 @@ React.initializeTouchEvents(true);
 var App = React.createClass({
 
   getInitialState: function() {
+    var data = localStorage.getItem('dests');    
+    if (data) {
+      data = JSON.parse(data) 
+    } else {
+      data = dests;
+    }
+
     return {
+      picking: false,
       dest: null,
       loading: false,
-      dests: dests, 
+      dests: data, 
       location: null, 
       distanceToStn: null, //right now this will be in meters
       departureTimes: null
@@ -78,11 +86,15 @@ var App = React.createClass({
    
   },
 
+  handleAddDest: function(place) {
+
+  },
+
 
 
   render: function () {
     //destination picker
-    if (!this.state.dest) {
+    if (!this.state.dest && !this.state.picking) {
       return (
         <Dest 
           onDestSelect={this.onSetDest}
@@ -91,6 +103,10 @@ var App = React.createClass({
         />
       );
     //loading page
+    } else if (this.state.picking) {
+      return (
+        <Pick onAddDest={this.handleAddDest} />
+      );
     } else if (this.state.loading) {
       return ( 
         <div className="loading"> 

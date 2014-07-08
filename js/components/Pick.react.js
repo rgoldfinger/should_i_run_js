@@ -2,7 +2,7 @@
 
 var React = require('react');
 
-var Question = React.createClass({
+var Pick = React.createClass({
   handleGo: function() {
     this.props.onGo();
   },
@@ -18,4 +18,4 @@ var Question = React.createClass({
   }
 });
 
-module.exports = Question;
+module.exports = Pick;
