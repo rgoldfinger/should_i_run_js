@@ -13,9 +13,9 @@ var DestEntry = React.createClass({
     return (
 
       <div 
-        className={"dest-entry dest" + this.props.key} 
-        onClick={this.handleSetDest} 
-
+        className={"dest-entry dest" + this.props.key}
+        onTouchEnd={this.handleSetDest} 
+        onClick={this.handleSetDest}
         >
         <p> {this.props.dest.name} </p>
       </div>
@@ -28,4 +28,5 @@ var DestEntry = React.createClass({
 module.exports = DestEntry;
 
 
-//        onTouchEnd={this.handleSetDest} 
+       // 
+//        

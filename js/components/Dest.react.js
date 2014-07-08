@@ -30,9 +30,9 @@ var Dest = React.createClass({
           {dests}
         </div>
         <div className="dest-entry pick"
-
-             onClick={this.handlePicking}>
-          <p>add destination</p>
+          onTouchEnd={this.handlePicking} 
+          onClick={this.handlePicking}>
+        <p>add destination</p>
         </div>
       </div>
     );
@@ -42,4 +42,4 @@ var Dest = React.createClass({
 
 module.exports = Dest;
 
-            // onTouchEnd={this.handlePicking} 
+            // 
