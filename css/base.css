@@ -77,6 +77,14 @@ body {
   background: #F8AF1E;
 }
 
+.pick {
+  background: #FA541C;
+}
+
+.picker-map {
+  height: 500px;
+}
+
 .loading {
 
   margin:0 auto;

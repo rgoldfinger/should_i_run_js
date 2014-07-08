@@ -2,7 +2,7 @@
   "name": "shouldirun",
   "version": "0.0.1",
   "description": "Should I run? for BART commuters",
-  "main": "client/js/app.js",
+  "main": "js/app.js",
   "dependencies": {
     "es6-promise": "~0.1.1",
     "react": "~0.10",
@@ -19,8 +19,8 @@
     "jest-cli": "~0.1.5"
   },
   "scripts": {
-    "start": "STATIC_ROOT=./static watchify -o client/js/bundle.js -v -d .",
-    "build": "STATIC_ROOT=./static NODE_ENV=production browserify . | uglifyjs -cm > client/js/bundle.min.js",
+    "start": "STATIC_ROOT=./static watchify -o js/bundle.js -v -d .",
+    "build": "STATIC_ROOT=./static NODE_ENV=production browserify . | uglifyjs -cm > js/bundle.min.js",
     "collect-static": "collect-static . ./static",
     "test": "jest"
   },

@@ -32,9 +32,11 @@ React.initializeTouchEvents(true);
 var App = React.createClass({
 
   getInitialState: function() {
-    var data = localStorage.getItem('dests');    
+
+    //load data from local storage if it exists, otherwise use dummy data
+    var data = localStorage.getItem('dests');  
     if (data) {
-      data = JSON.parse(data) 
+      data = JSON.parse(data);
     } else {
       data = dests;
     }
@@ -43,8 +45,8 @@ var App = React.createClass({
       picking: false,
       dest: null,
       loading: false,
-      dests: data, 
-      location: null, 
+      dests: data,
+      location: null,
       distanceToStn: null, //right now this will be in meters
       departureTimes: null
     };
@@ -76,7 +78,7 @@ var App = React.createClass({
         Helpers.getNextTrains(steps[1], steps[2], function(err, data) {
           console.log("departure times: ", data);
           this.setState({
-            departureTimes: data, 
+            departureTimes: data,
             loading: false
           });
         }.bind(this));
@@ -87,7 +89,13 @@ var App = React.createClass({
   },
 
   handleAddDest: function(place) {
+    this.state.dests.push(place);
+    this.setState({dests: this.state.dests, picking: false});
+    localStorage.setItem('places', JSON.stringify(this.state.dests));
+  },
 
+  handlePicking: function() {
+    this.setState({picking: true});
   },
 
 
@@ -96,7 +104,8 @@ var App = React.createClass({
     //destination picker
     if (!this.state.dest && !this.state.picking) {
       return (
-        <Dest 
+        <Dest
+          onPicking={this.handlePicking}
           onDestSelect={this.onSetDest}
           dests={this.state.dests}
           loc={this.state.location}
@@ -105,7 +114,8 @@ var App = React.createClass({
     //loading page
     } else if (this.state.picking) {
       return (
-        <Pick onAddDest={this.handleAddDest} />
+        <Pick onAddDest={this.handleAddDest} 
+          loc={this.state.location} />
       );
     } else if (this.state.loading) {
       return ( 

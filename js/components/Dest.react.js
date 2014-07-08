@@ -10,6 +10,10 @@ var Dest = React.createClass({
     this.props.onDestSelect(dest);
   },
 
+  handlePicking: function() {
+    this.props.onPicking();
+  },
+
 
   render: function() {
     var dests = _.map(this.props.dests, function(dest, i) {
@@ -24,6 +28,10 @@ var Dest = React.createClass({
         </div>
         <div>
           {dests}
+        </div>
+        <div className="dest pick"
+             onTouchEnd={this.handlePicking} >
+          <p>Add destination</p>
         </div>
       </div>
     );
