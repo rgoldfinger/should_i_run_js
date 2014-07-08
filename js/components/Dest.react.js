@@ -11,6 +11,7 @@ var Dest = React.createClass({
   },
 
   handlePicking: function() {
+    console.log("going to picking");
     this.props.onPicking();
   },
 
@@ -30,7 +31,8 @@ var Dest = React.createClass({
           {dests}
         </div>
         <div className="dest-entry pick"
-             onTouchEnd={this.handlePicking} >
+             onTouchEnd={this.handlePicking} 
+             onClick={this.handlePicking}>
           <p>add destination</p>
         </div>
       </div>

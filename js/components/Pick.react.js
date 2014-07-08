@@ -12,9 +12,12 @@ var addMap = function(lat, lon) {
         maxZoom: 18
       }).addTo(map);
 
-      // map.on()
+      map.on('click', function (e){
+        this.handlePick(e);
+      }.bind(this));
 
 };
+
 
 var Pick = React.createClass({
   componentDidMount: function() {
@@ -22,32 +25,38 @@ var Pick = React.createClass({
       Helpers.determineLocation(function(loc) {
         var lat = loc.coords.latitude;
         var lon = loc.coords.longitude;
-        addMap(lat, lon);
+        addMap.call(this, lat, lon);
       }.bind(this));
 
     } else {
       var lat = this.props.loc.coords.latitude;
       var lon = this.props.loc.coords.longitude;
-      addMap(lat, lon);
+      addMap.call(this, lat, lon);
       
     }
-
   },
 
-  handleGo: function() {
-    console.log();
-    var name = prompt("name:");
+  componentWillUnmount: function() {
+    document.getElementById('map')
+      .removeEventListener('click', function (e){
+        this.handlePick(e);
+      }.bind(this), false);
+  },
+
+  handlePick: function(e) {
+    console.log("handling pick");
+    console.dir(e);
+    // var name = prompt("name:");
   },
 
   render: function() {
     return (
-      <div className="question"
-        onTouchEnd={this.handleGo}
-        onClick={this.handleGo}>
+      <div className="question">
         <div id="map" className="picker-map"></div>
       </div>
     )
   }
 });
+
 
 module.exports = Pick;
