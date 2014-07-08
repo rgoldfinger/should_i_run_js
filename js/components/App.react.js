@@ -19,8 +19,7 @@ var Helpers = require('../helpers/helpers');
 
 //state list: 
 // dest: Name or null
-// loadingResult: Bool
-// hasResult: Bool
+// loading: Bool
 
 var dests = [
   { name: 'home', loc: '1', lat: '37.856808', lon: '-122.252941' },
@@ -35,9 +34,7 @@ var App = React.createClass({
   getInitialState: function() {
     return {
       dest: null,
-      loadingResult: false,
-      hasResult: false,
-      viewResult: false,
+      loading: false,
       dests: dests, 
       location: null, 
       distanceToStn: null, //right now this will be in meters
@@ -60,7 +57,7 @@ var App = React.createClass({
 
 
   onSetDest: function(dest) {
-    this.setState({dest: dest});
+    this.setState({dest: dest, loading: true});
     Helpers.determineLocation(function(loc) {
       this.setState({
         location: loc
@@ -72,7 +69,7 @@ var App = React.createClass({
           console.log("departure times: ", data);
           this.setState({
             departureTimes: data, 
-            hasResult: true
+            loading: false
           });
         }.bind(this));
 
@@ -81,31 +78,11 @@ var App = React.createClass({
    
   },
 
-  handleGo: function() {
-    //for now setting has result to true, but will need to call helpers and things first
-    this.setState({
-      viewResult: true
-    })
 
-  },
 
   render: function () {
-    //Question page
-    if (this.state.dest !== null && (!this.state.viewResult || !this.state.hasResult)) {
-      return ( <Question dest={this.state.dest}
-                onGo={this.handleGo}
-                />);
-
-    //Results page!
-    } else if (this.state.hasResult && this.state.viewResult) {
-      return (
-        <Result 
-          distanceToStn={this.state.distanceToStn}
-          departureTimes={this.state.departureTimes}
-          />
-      );
-    //The user hasn't done anything yet so show the destination picker
-    } else {
+    //destination picker
+    if (!this.state.dest) {
       return (
         <Dest 
           onDestSelect={this.onSetDest}
@@ -113,7 +90,24 @@ var App = React.createClass({
           loc={this.state.location}
         />
       );
+    //loading page
+    } else if (this.state.loading) {
+      return ( 
+        <div className="loading"> 
+          <span className="csspinner shadow oval"></span>
+          <p className="loading-text"><i>loading...</i></p>
+        </div>
+      );
+    //result!!!
+    } else {
+      return (
+        <Result 
+          distanceToStn={this.state.distanceToStn}
+          departureTimes={this.state.departureTimes}
+          />
+      );
     }
+
 
 
   }

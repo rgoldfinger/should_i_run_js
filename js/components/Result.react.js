@@ -78,8 +78,8 @@ var Result = React.createClass({
         className={'because'}>
         <p>Next train: <b>~{nextTime}</b> minutes</p>
         <p>Station: {distance} meters away</p>
-        <p><b>{Math.ceil(distance/walkingSpeed)}</b> minutes walking</p>
-        <p><b>{Math.ceil(distance/runningSpeed)}</b> minutes running</p>
+        <p><b>{Math.ceil(distance/walkingSpeed) + timeInStation}</b> minutes walking</p>
+        <p><b>{Math.ceil(distance/runningSpeed) + timeInStation}</b> minutes running</p>
       </div>
 
     );
