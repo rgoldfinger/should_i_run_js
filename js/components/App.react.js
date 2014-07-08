@@ -91,7 +91,7 @@ var App = React.createClass({
 
   render: function () {
     //Question page
-    if (this.state.dest !== null && !this.state.hasResult) {
+    if (this.state.dest !== null && !this.state.viewResult) {
       return ( <Question dest={this.state.dest}
                 onGo={this.handleGo}
                 />);
