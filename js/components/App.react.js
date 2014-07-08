@@ -150,7 +150,7 @@ var App = React.createClass({
 
   handleLogin: function() {
     console.log("logging in");
-    this.auth.login('github', {
+    this.auth.login('facebook', {
       rememberMe: true, 
       preferRedirect: true
     });
