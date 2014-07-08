@@ -29,9 +29,9 @@ var Dest = React.createClass({
         <div>
           {dests}
         </div>
-        <div className="dest pick"
+        <div className="dest-entry pick"
              onTouchEnd={this.handlePicking} >
-          <p>Add destination</p>
+          <p>add destination</p>
         </div>
       </div>
     );
