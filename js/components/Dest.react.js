@@ -10,8 +10,7 @@ var Dest = React.createClass({
     this.props.onDestSelect(dest);
   },
 
-  handlePicking: function() {
-    console.log("going to picking");
+  handlePicking: function(e) {
     this.props.onPicking();
   },
 

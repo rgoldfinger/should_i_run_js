@@ -3,7 +3,8 @@
 var React = require('react');
 
 var DestEntry = React.createClass({
-  handleSetDest: function() {
+  handleSetDest: function(e) {
+    console.dir(e);
     this.props.onSetDest(this.props.dest);
   },
 

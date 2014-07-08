@@ -24,7 +24,7 @@ var Helpers = require('../helpers/helpers');
 var dests = [
   { name: 'home', loc: '1', lat: '37.856808', lon: '-122.252941' },
   { name: 'hack reactor', loc: '2', lat: '37.783531', lon: '-122.40911' }
-]
+];
 
 
 React.initializeTouchEvents(true);
@@ -99,6 +99,13 @@ var App = React.createClass({
     this.setState({picking: true});
   },
 
+  handleSubmitPlace: function(place) {
+    console.log("submitting");
+    console.log(place);
+    this.setState({picking: false});
+    this.handleAddDest(place);
+  },
+
 
 
   render: function () {
@@ -116,6 +123,7 @@ var App = React.createClass({
     } else if (this.state.picking) {
       return (
         <Pick onAddDest={this.handleAddDest} 
+          onSubmitPlace={this.handleSubmitPlace}
           loc={this.state.location} />
       );
     } else if (this.state.loading) {

@@ -20,6 +20,9 @@ var addMap = function(lat, lon) {
 
 
 var Pick = React.createClass({
+  getInitialState: function() {
+    return {loc: null, name: null};
+  },
   componentDidMount: function() {
     if (!this.props.loc) {
       Helpers.determineLocation(function(loc) {
@@ -36,25 +39,46 @@ var Pick = React.createClass({
     }
   },
 
-  componentWillUnmount: function() {
-    document.getElementById('map')
-      .removeEventListener('click', function (e){
-        this.handlePick(e);
-      }.bind(this), false);
+  handlePick: function(e) {
+    this.setState({loc: e.latlng});
   },
 
-  handlePick: function(e) {
-    console.log("handling pick");
-    console.dir(e);
-    var name = prompt("name:", '');
+  handleChange: function() {
+    this.setState({name: this.refs.nameArea.getDOMNode().value.trim()});
+  },
+
+  handleSubmit: function() {
+
+    var place = { name: this.state.name, lat: this.state.loc.lat, lon: this.state.loc.lng };
+    this.props.onSubmitPlace(place);
+
   },
 
   render: function() {
-    return (
-      <div className="question">
-        <div id="map" className="picker-map"></div>
-      </div>
-    )
+    if (this.state.loc === null) {
+      return (
+        <div className="question">
+          <div id="map" className="picker-map"></div>
+        </div>
+      )
+    } else {
+      return (
+        <div className="enter-name" >
+          <p>Location Name:</p>
+          <form >
+            <input 
+              ref="nameArea"
+              value={this.state.name} 
+              onChange={this.handleChange} />
+            <button 
+              onTouchEnd={this.handleSubmit}
+              onClick={this.handleSubmit}>
+              Save
+            </button>
+          </form>
+        </div>
+      )
+    }
   }
 });
 
