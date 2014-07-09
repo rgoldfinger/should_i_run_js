@@ -89,17 +89,13 @@ var helpers = {
     i = 0;
     for (var k = 1; k < goog.routes.length; k ++) {
       steps = goog.routes[k].legs[0].steps;
-      console.log('route #', k);
-      console.dir(steps);
 
       foundWalking = false;
 
       while(!foundWalking) {
-        if (steps[i].travel_mode === 'WALKING') {
-          console.log('found walking');
-          console.log("i", i);
+        if (steps[i] && steps[i].travel_mode && steps[i].travel_mode === 'WALKING') {
           foundWalking = true;
-        } else if (i === steps.length) {
+        } else if (i >= steps.length - 1) {
           foundWalking = true; //prevent infinate loop
         } else {
           i ++;
@@ -107,7 +103,7 @@ var helpers = {
       }
 
       i++;
-      if (i <= steps.length) {
+      if (i < steps.length) {
         name2 = steps[i].instructions;
         name2 = name2.slice(19).trim();
       }
@@ -123,7 +119,7 @@ var helpers = {
 
   },
 
-  getNextTrains: function(startStn, endStn, callback) {
+  getNextTrains: function(startStn, endStnArr, callback) {
     var query = 'http://api.bart.gov/api/etd.aspx?cmd=etd' +
                 '&orig=' + startStn +
                 '&key=' + 'ZELI-U2UY-IBKQ-DT35';
@@ -141,14 +137,21 @@ var helpers = {
           var temp;
           var departureTimes = [];
           for (var i = 0; i < data.length; i ++) {
-            if (data[i].abbreviation[0] === endStn) {
-              temp = data[i].estimate;
-              for (var k = 0; k <temp.length; k++) {
-                if (temp[k].minutes[0] !== 'Leaving') { //sometimes the number of minutes is "Leaving"
-                  departureTimes.push(temp[k].minutes[0]);
+
+            //check against all possible end stations
+            for (var j = 0; j < endStnArr.length; j ++) {
+
+              if (data[i].abbreviation[0] === endStnArr[j]) {
+                temp = data[i].estimate;
+                for (var k = 0; k <temp.length; k++) {
+                  if (temp[k].minutes[0] !== 'Leaving') { //sometimes the number of minutes is "Leaving"
+                    departureTimes.push(temp[k].minutes[0]);
+                  }
                 }
               }
             }
+
+
           }
           callback(null, departureTimes);
 

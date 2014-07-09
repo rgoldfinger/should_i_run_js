@@ -113,7 +113,6 @@ var App = React.createClass({
         var steps = Helpers.convertGoogleToBart(stuff); //returns an array of start and end stations
         this.setState({distanceToStn: steps[0], stationName: steps[3]});
         Helpers.getNextTrains(steps[1], steps[2], function(err, data) {
-          console.log("departure times: ", data);
           this.setState({
             departureTimes: data,
             loading: false

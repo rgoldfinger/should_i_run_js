@@ -25,6 +25,11 @@ var Result = React.createClass({
     var times = _.map(this.props.departureTimes, function(time) {
       return parseInt(time);
     });
+    times = _.uniq(times);
+    times = times.sort(function(a, b) {
+      return a > b;
+    });
+    console.dir(times);
 
     var distance = parseInt(this.props.distanceToStn);
 
