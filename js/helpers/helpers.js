@@ -16,12 +16,6 @@ var helpers = {
   askGoogle: function(start, end, callback) {
     var startlatlon = new google.maps.LatLng(start.coords.latitude, start.coords.longitude);
     var endlatlon = new google.maps.LatLng(end.lat, end.lon);
-    var query = 'http://maps.googleapis.com/maps/api/directions/json?' +
-          'origin=' + startlatlon +
-          '&destination=' + endlatlon +
-          '&mode=transit' +
-          '&departure_time=' + Date.now() +
-          '&key=' + 'AIzaSyBnKY7DHsBXsUSFd0imeI526cNE9h5IpUY';
 
     var now = Date.now();
 
@@ -29,6 +23,7 @@ var helpers = {
         origin: startlatlon,
         destination: endlatlon,
         travelMode: google.maps.TravelMode.TRANSIT,
+        provideRouteAlternatives: true
 
     };
 
@@ -45,31 +40,32 @@ var helpers = {
 
 
   //takes what google gives back, returns an array of distance to stn, start and end of line stations
-  convertGoogleToBart: function(g) {
-    g = g.routes[0].legs[0].steps;
-    console.dir(g);
-    var steps = [];
+  convertGoogleToBart: function(goog) {
+    var result = [];
 
 
     var foundWalking = false;
     var i = 0;
+    var name1;
+    var name2;
+    var stn1;
+    var stn2;
 
+    var steps = goog.routes[0].legs[0].steps;
 
     while(!foundWalking) {
-      if (g[i].travel_mode === 'WALKING') {
+      if (steps[i].travel_mode === 'WALKING') {
         foundWalking = true;
-        var name1 = g[i].instructions;
-        name1 = name1.slice(7).trim(); 
-        console.log("name1: ", name1);
-        var stn1 = bartLookup[name1];
-        console.log("stn1", stn1);
-        steps[0] = g[i].distance.value;//this is distance in meters
-        steps[1] = stn1.toUpperCase(); //our data is in lowercase but bart requires upper
+        name1 = steps[i].instructions;
+        name1 = name1.slice(7).trim();
+        stn1 = bartLookup[name1];
+        result[0] = steps[i].distance.value;//this is distance in meters
+        result[1] = stn1.toUpperCase(); //our data is in lowercase but bart requires upper
 
 
 
 
-      } else if (i === g.length) {
+      } else if (i === steps.length) {
         console.error("no valid transit directions");
         foundWalking = true; //prevent infinate loop
       } else {
@@ -81,15 +77,49 @@ var helpers = {
     //We are assuming that the next item in the array 
     //will be the "Metro rail towards Pittsburg/Bay Point" step
     i++;
-    var name2 = g[i].instructions;
+    name2 = steps[i].instructions;
     name2 = name2.slice(19).trim();
-    console.log("name2: ", name2);
-    var stn2 = bartLookup[name2];
-    console.log("stn2", stn2);
-    steps[2] = stn2.toUpperCase(); //our data is in lowercase but bart requires upper
-    steps[3] = name1; //Name of the station walking to
+    stn2 = bartLookup[name2];
+    result[2] = []; //an array so that we can look for other possible trains
+    result[2].push(stn2.toUpperCase()); //our data is in lowercase but bart requires upper
 
-    return steps; //[distance to start station, start station, end of line station]
+    result[3] = name1; //Name of the station walking to
+
+    //now go look for other termininus' in the remaining routes
+    i = 0;
+    for (var k = 1; k < goog.routes.length; k ++) {
+      steps = goog.routes[k].legs[0].steps;
+      console.log('route #', k);
+      console.dir(steps);
+
+      foundWalking = false;
+
+      while(!foundWalking) {
+        if (steps[i].travel_mode === 'WALKING') {
+          console.log('found walking');
+          console.log("i", i);
+          foundWalking = true;
+        } else if (i === steps.length) {
+          foundWalking = true; //prevent infinate loop
+        } else {
+          i ++;
+        }
+      }
+
+      i++;
+      if (i <= steps.length) {
+        name2 = steps[i].instructions;
+        name2 = name2.slice(19).trim();
+      }
+      
+      if (bartLookup.hasOwnProperty(name2)) {
+        stn2 = bartLookup[name2];
+        result[2].push(stn2.toUpperCase()); //our data is in lowercase bu
+      }
+
+    }
+
+    return result; //[distance to start station, start station, end of line station]
 
   },
 
